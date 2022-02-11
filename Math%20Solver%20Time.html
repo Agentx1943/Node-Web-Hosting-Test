@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)file:///C:/Users/agent/Downloads/FasMaths%20(1).html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Math Solver Time</title>
+<!--Original html written by Adam Mendelsohn and adapted by Aarav Sinha-->
+<style> 
+    * {
+  box-sizing: border-box;
+}
+    .box {
+        display: inline-grid;
+        border-style: inset;
+        border-color: rgb(86, 14, 202);
+        border-width: thick;
+        background-color:  #69f593;
+        width: 300px;
+        height: 300px;
+        border-radius: 12px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-right: 80px;
+        margin-left: 80px;
+        }
+    .answer {
+        border-style: inset;
+        border-color: rgb(0, 0, 0);
+        border-width: thick;
+        background-color:  #ffffff;
+        width: 100px;
+        height: 30px;
+        border-radius: 12px;
+        position: sticky;
+        }
+        #miniSqr2{
+        border-style: inset;
+        border-color: rgb(0, 0, 0);
+        border-width: thick;
+        background-color:  #ffffff;
+        width: 200px;
+        height: 30px;
+        border-radius: 12px;
+        position: sticky;
+        }
+    .fancyButtons {
+        width: 240px;
+        height: 50px;
+        background-color: #ffffff;
+    }	
+    </style>
+
+</head>
+<body style="background-color:rgb(173, 230, 201)">
+<center><h2>Math Time</h2></center>
+<center>By Aarav Sinha & Tyler Tuttle<br><br></center>
+<!--Authors: Aarav Sinha and Tyler Tuttle-->
+    <div class="box" id="arith"> <br><center><b>Calculate the sum of an Arithmetic Sequence</b></center>
+        <form id="frm1" action="/action_page.php">
+            <br><br>
+            &nbsp;&nbsp;First Value:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" name="First"><br>
+            &nbsp;&nbsp;Last Value:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" name="Last"><br>
+            &nbsp;&nbsp;Common Diff: <input type="number" name="Diff"><br><br>
+        </form> 
+        <center><button class="fancyButtons" onclick="arithSetUp()">Solve!</button></center>
+        <br>
+        <center><div class="answer" id=miniSqr><center id="jsOut"></center></div></center>
+        <br><br>
+        </div>
+        <div class="box" id="geo"> <br><center><b>Calculate the sum of an Geometric Sequence</b></center>
+            <form id="frm3" action="/action_page.php">
+                <br><br>
+                &nbsp;&nbsp;First Value:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" name="First"><br>
+                &nbsp;&nbsp;Last Value:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" name="Last"><br>
+                &nbsp;&nbsp;Ratio: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="Diff"><br><br>
+            </form> 
+            <center><button class="fancyButtons" onclick="geoSetUp()">Solve!</button></center>
+            <br>
+            <center><div class="answer" id=miniSqr2><center id="jsOut3"></center></div></center>
+            <br><br>
+            </div>
+
+    <div class="box" id="type"> <br><center><b>Check the type of number<br><br></b></center>
+        <form id="frm2" action="/action_page.php">
+            <br><br>
+            &nbsp;&nbsp;Numerator:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="number" name="First"><br>
+            &nbsp;&nbsp;Denominator:&nbsp; <input type="number" name="Last"><br> <br> <br>
+          </form> 
+          <center><button class="fancyButtons" onclick="typeSetUp()">Solve!</button></center>
+          <br>
+          <center><div class="answer" id=miniSqr2><center id="jsOut1"></center></div></center>
+          <br><br>
+        </div>
+
+        <div class="box" id="lcm"> <br><center><b>Find the LCM of two numbers<br><br></b></center>
+            <form id="frm4" action="/action_page.php">
+                <br><br>
+                &nbsp;&nbsp;Number 1:&nbsp; <input type="number" name="First"><br>
+                &nbsp;&nbsp;Number 2:&nbsp; <input type="number" name="Last"><br> <br> <br>
+              </form> 
+              <center><button class="fancyButtons" onclick="lcmSetUp()">Solve!</button></center>
+              <br>
+              <center><div class="answer" id=miniSqr4><center id="lcmOut"></center></div></center>
+              <br><br>
+            </div>
+        
+            <div class="box" id="GCD"> <br><center><b>Find the GCD of two numbers<br><br></b></center>
+                <form id="frm5" action="/action_page.php">
+                    <br><br>
+                    &nbsp;&nbsp;Number 1:&nbsp; <input type="number" name="First"><br>
+                    &nbsp;&nbsp;Number 2:&nbsp; <input type="number" name="Last"><br> <br> <br>
+                  </form> 
+                  <center><button class="fancyButtons" onclick="gcdSetUp()">Solve!</button></center>
+                  <br>
+                  <center><div class="answer" id=miniSqr5><center id="gcdOut"></center></div></center>
+                  <br><br>
+                </div>
+            
+                <div class="box" id="PAL"> <br><center><b>Is your number a palindrome<br><br></b></center>
+                    <form id="frm6" action="/action_page.php">
+                        <br><br>
+                        &nbsp;&nbsp;Number:&nbsp; <input type="number" name="First"><br>
+                      </form> 
+                      <center><button class="fancyButtons" onclick="palSetUp()">Check!</button></center>
+                      <br>
+                      <center><div class="answer" id=miniSqr6><center id="palOut"></center></div></center>
+                      <br><br>
+                    </div>
+</body>
+<form action="http://localhost:8082/Page%20Two%20Test.html">
+    <button class="fancyButtons" type="submit" >Next Page -></button>
+</form>
+
+    <script src=" http://localhost:8082/src/typeSolve.js"></script>
+    <script src=" http://localhost:8082/src/geoAdd.js"></script>
+    <script src=" http://localhost:8082/src/arithAdd.js"></script>
+    <script src=" http://localhost:8082/src/LCMAdd.js"></script>
+    <script src=" http://localhost:8082/src/palindrome.js"></script>
+
+    

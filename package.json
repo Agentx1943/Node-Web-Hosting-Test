@@ -1,0 +1,15 @@
+{
+  "name": "webserver",
+  "version": "1.0.0",
+  "description": "Simple Web Server Testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [
+    "web",
+    "server"
+  ],
+  "author": "Aarav Sinha",
+  "license": "ISC"
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+<script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+<body onload="startGame()">
+
+<script>
+var score = 0;
+var myGamePiece;
+var myGoal;
+function startGame() {
+    myGamePiece = new component(30, 30, "red", window.innerWidth/2, window.innerHeight/2);
+    myGoal  = new Goal(200, 200, "green", Math.floor(Math.random() * 1000), Math.floor(Math.random() * 400));
+    //myGoal  = new Goal(200, 200, "green", 100, 150);
+    //myGoal  = new Goal(200, 200, "green", 300, 200);
+    //testRect = new component((200, 200, "black", 1150,800 );  
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = window.innerWidth-20;
+        this.canvas.height =  window.innerHeight-100;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(updateGameArea, 20);
+        window.addEventListener('keydown', function (e) {
+            e.preventDefault();
+            myGameArea.keys = (myGameArea.keys || []);
+            myGameArea.keys[e.keyCode] = (e.type == "keydown");
+        })
+        window.addEventListener('keyup', function (e) {
+            myGameArea.keys[e.keyCode] = (e.type == "keydown");
+        })
+    },
+    stop : function() {
+        clearInterval(this.interval);
+    },    
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+function component(width, height, color, x, y, type) {
+
+    this.color = color;
+    ////console.log(this.color)
+    this.type = type;
+    ////console.log(this.type)
+    this.width = width;
+    this.height = height;
+    this.speed = 0;
+    this.angle = 0;
+    this.moveAngle = 0;
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
+        ctx.restore();    
+    }
+    this.newPos = function() {
+        this.angle += this.moveAngle * Math.PI / 180;
+        this.x += this.speed * Math.sin(this.angle);
+        this.y -= this.speed * Math.cos(this.angle);
+    }
+    
+
+}
+;
+
+function Goal(width, height, color, x, y, type) {
+	//console.log(color)
+	////console.log(this.color)
+    this.type = type;
+    this.width = width;
+    this.height = height;
+    this.speed = 0;
+    this.angle = 0;
+    this.moveAngle = 0;
+    this.x = x//+this.width;
+    this.y = y//+this.height;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ////console.log(this.x, this.y)
+        //ctx.rotate(this.angle);
+        ctx.fillStyle = color;
+        ctx.fillRect(this.width, this.height, this.width , this.height );
+        
+        ctx.restore();    
+    }
+    // this.newPos = function() {
+    //     this.angle += this.moveAngle * Math.PI / 180;
+    //     this.x += this.speed * Math.sin(this.angle);
+    //     this.y -= this.speed * Math.cos(this.angle);
+    //}
+    
+
+}
+;
+
+
+function updateGameArea() {
+    var collision = false
+    myGameArea.clear();
+    myGamePiece.moveAngle = 0;
+    myGamePiece.speed = 0;
+    
+	if (((myGamePiece.x) < (myGoal.x + 2*myGoal.width)) &&
+	   ((myGamePiece.x + myGamePiece.width) > (myGoal.x + myGoal.width)) &&
+	   ((myGamePiece.y) < (myGoal.y + 2*myGoal.height)) &&
+	   ((myGamePiece.y + myGamePiece.height) > (myGoal.y + myGoal.height))) {
+	    collision = true
+		var objx, objy;
+		objx = myGoal.x - myGoal.width;
+		objy = myGoal.y - myGoal.height;
+		//console.log(objx+','+objy);
+		////console.log(myGoal.x);
+		//console.log(myGoal.width);
+		////console.log(myGoal.y);
+		//console.log(myGoal.height);
+		//console.log(myGamePiece.x+','+myGamePiece.y); 
+	}
+
+    if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.moveAngle = -5;}// //console.log(myGamePiece.x+','+myGamePiece.y);}
+    if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.moveAngle = 5;} ////console.log(myGamePiece.x+','+myGamePiece.y);}
+    if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speed= 5;} ////console.log(myGamePiece.x+','+myGamePiece.y);}
+    if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speed= -5;}// //console.log(myGamePiece.x+','+myGamePiece.y);}
+    myGamePiece.newPos();
+    myGamePiece.update();
+    myGoal.update();
+    //testRect.update();
+    ////console.log(myGamePiece.x+','+myGamePiece.y)
+    ////console.log(collision)
+    if (collision){
+    	//startGame();
+    	myGamePiece = new component(30, 30, "red", 950, 430);
+    	//myGoal  = new Goal(200, 200, "green", (Math.floor(Math.random() * window.innerWidth))-200, (Math.floor(Math.random() * window.innerHeight))-200);
+    	myGoal.x = Math.abs((Math.floor(Math.random() * myGameArea.canvas.width))-400)
+    	myGoal.y = Math.abs((Math.floor(Math.random() * myGameArea.canvas.height))-400)
+    	console.log(myGoal.x+' , '+myGoal.y)
+    	score++
+    	console.log(score)
+    	document.getElementById("p2").innerHTML = `score: ${score}`;
+    	//myGamePiece.color = 'blue'
+    	//alert(`you died`)
+    	//myGameArea.stop();
+    }//else{
+    	//myGamePiece.color = 'red'
+    //}
+}
+</script>
+
+<p id="p1">Up(↑) and Down(↓) are accelerate and reverse while (←)&(→) are steer</p> 
+<p id="p2">score: </p> 
+
+
+
+<script type="text/javascript">(function(){window['__CF$cv$params']={r:'6de7d4d65ee996de',m:'pAf0VFA1ZCCHFm0BQTYFJBOundOMi2QYf7yyatbEl3Y-1645025575-0-AWlAx555LjopcUU1Zh/ikNI8WMf58nY/+HCTfWa9laicSdfEeNTu/qFVC6TZfs+PQ3TPo8+MJ9oG3W5SedAPxFpj8X91Qg2OPnNBDg6WmYySMRQCnLCvuVkqFvepJTFV332BIVgcVl+PkcgX5SodnKMYnshaVyP/4oGgh48wTxeRPbF/L2l+MqP7gYXPbyykATnd1su02Cl2FAQhot4V4hU=',s:[0xcc64ff4775,0xe13148d5c7],}})();</script></body>
+</html>
